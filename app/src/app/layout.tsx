@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 
+import { Toaster } from "@/components/ui/sonner"
+
 import "./globals.css";
 
 const outfit = Outfit({ subsets: ["latin"] })
@@ -23,6 +25,7 @@ export default function RootLayout({
         <main className="flex-1">
           {children}
         </main>
+        <Toaster richColors/>
       </body>
     </html>
   );
