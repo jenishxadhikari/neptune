@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 
 type SessionTokenPayload = {
   userId: string | number
-  userRole: "admin" | "user" | null
+  userRole: "admin" | "user"
 };
 
 const secretKey = process.env.SECRET!
