@@ -4,6 +4,7 @@ import { Outfit } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner"
 
 import "./globals.css";
+import { Navbar } from "@/components/navbar";
 
 const outfit = Outfit({ subsets: ["latin"] })
 
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body
         className={`${outfit.className} flex flex-col min-h-screen antialiased`}
       >
+        <Navbar />
         <main className="flex-1">
           {children}
         </main>

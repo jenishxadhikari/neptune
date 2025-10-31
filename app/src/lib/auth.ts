@@ -53,3 +53,18 @@ export async function deleteSessionToken() {
     console.error('[DELETE_SESSION_TOKEN_ERROR] : ', error);
   }
 }
+
+export async function auth() {
+  try {
+    const cookieStore = await cookies()
+    const sessionToken = cookieStore.get('sessionToken')?.value
+    let payload: SessionTokenPayload | null = null
+    if(sessionToken){
+      payload = await verifyToken(sessionToken)
+    }
+    return payload
+  } catch (error) {
+    console.error('[DELETE_SESSION_TOKEN_ERROR] : ', error);
+    return null
+  }
+}

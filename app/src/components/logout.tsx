@@ -11,6 +11,9 @@ export function Logout() {
     if (result?.success) {
       toast.success(result.message)
     }
+    if(!result?.success){
+      toast.error(result.message)
+    }
   }
   return (
     <Button type="submit" variant="destructive" onClick={handleLogout}>
