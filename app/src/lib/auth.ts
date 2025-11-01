@@ -38,7 +38,7 @@ export async function setSessionToken(token: string) {
     cookieStore.set('sessionToken', token, {
       httpOnly: true,
       secure: true,
-      expires: new Date(Date.now() + 7 * 24 * 60 * 60)
+      expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
     })
   } catch (error) {
     console.error('[SET_SESSION_TOKEN_ERROR] : ', error);
