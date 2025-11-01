@@ -20,7 +20,10 @@ export async function getUserByEmail(email: string) {
 export async function getUserById(id: string) {
   try {
     const user = await db.query.users.findFirst({
-      where: eq(users.id, id)
+      where: eq(users.id, id),
+      columns: {
+        password: false
+      }
     })
     return user ? user : null
   } catch (error) {
