@@ -25,6 +25,16 @@ export default function AdminPage() {
               </CardHeader>
             </Card>
           </Link>
+          <Link href="/admin/songs">
+            <Card className='max-w-sm hover:scale-105 transition-all'>
+              <CardHeader>
+                <CardTitle className='text-xl'>Manage Songs</CardTitle>
+                <CardDescription>
+                  Add new songs, update details, and organize the music library.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </Link>
         </div>
       </MaxWidthWrapper>
     </section>

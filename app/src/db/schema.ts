@@ -11,3 +11,16 @@ export const users = pgTable("users", {
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull()
 })
+
+export const songs = pgTable("songs", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  title: text("title").notNull(),
+  artist: text("artist").notNull(),
+  album: text("album").notNull(),
+  genre: text("genre").notNull(),
+  year: text("year").notNull(),
+  duration: text("duration").notNull(),
+  url: text("url").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow()
+})
