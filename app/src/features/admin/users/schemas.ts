@@ -29,8 +29,14 @@ export const updateUserSchema = z.object({
 
 export type User = typeof users.$inferSelect
 
-export type UserColumn = z.infer<typeof userSchema>
-
+export type UserColumn = {
+  id: string
+  name: string
+  email: string
+  role: "user" | "admin"
+  createdAt: string
+  updatedAt: string
+}
 export type CellActionProps = {
   data: UserColumn
 }
