@@ -4,7 +4,9 @@ import { auth } from "@/lib/auth";
 import { MaxWidthWrapper } from "@/components/max-width-wrapper";
 
 import { UserInfo } from "@/features/profile/components/user-info";
+import { SavedSongs } from "@/features/profile/components/saved-songs";
 import { me } from "@/features/profile/actions";
+import { getSavedSongs } from "@/features/profile/queries";
 
 export default async function Profile() {
   const payload = await auth();
@@ -16,6 +18,11 @@ export default async function Profile() {
   const userData = await me(payload.userId.toString());
 
   if (!userData) {
+    return null;
+  }
+
+  const savedSongs = await getSavedSongs(userData.id)
+  if (!savedSongs) {
     return null;
   }
 
@@ -32,6 +39,10 @@ export default async function Profile() {
             }} />
           </div>
 
+          <SavedSongs
+            userId={userData.id}
+            savedSongs={savedSongs}
+          />
 
         </div>
       </MaxWidthWrapper>
