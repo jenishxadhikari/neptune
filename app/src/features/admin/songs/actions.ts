@@ -31,7 +31,7 @@ export async function addSong(data: z.infer<typeof songSchema>) {
         duration,
         url
       })
-      .returning({ id: songs.id });
+      .returning({ id: songs.id, url: songs.url });
 
     const currentSong = song[0];
     // If song is not found, return early
@@ -39,6 +39,26 @@ export async function addSong(data: z.infer<typeof songSchema>) {
       return {
         success: false,
         message: 'An error occurred while adding the song.'
+      };
+    }
+
+    const formData = new FormData();
+    formData.append("song_id", String(currentSong.id));
+    formData.append("youtube_url", currentSong.url);
+
+    const response = await fetch("http://localhost:8000/fingerprint", {
+      method: "POST",
+      body: formData,
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      console.error("Fingerprint error:", result);
+      await db.delete(songs).where(eq(songs.id, currentSong.id));
+      return {
+        success: false,
+        message: result.detail || "Failed to fingerprint song.",
       };
     }
 

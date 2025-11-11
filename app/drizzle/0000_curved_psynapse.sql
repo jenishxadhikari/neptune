@@ -1,4 +1,10 @@
 CREATE TYPE "public"."user_role" AS ENUM('user', 'admin');--> statement-breakpoint
+CREATE TABLE "hashes" (
+	"hash" bigint NOT NULL,
+	"time" integer NOT NULL,
+	"song_id" uuid NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE "saved_songs" (
 	"user_id" uuid NOT NULL,
 	"song_id" uuid NOT NULL,
@@ -30,5 +36,7 @@ CREATE TABLE "users" (
 	CONSTRAINT "users_email_unique" UNIQUE("email")
 );
 --> statement-breakpoint
+ALTER TABLE "hashes" ADD CONSTRAINT "hashes_song_id_songs_id_fk" FOREIGN KEY ("song_id") REFERENCES "public"."songs"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "saved_songs" ADD CONSTRAINT "saved_songs_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "saved_songs" ADD CONSTRAINT "saved_songs_song_id_songs_id_fk" FOREIGN KEY ("song_id") REFERENCES "public"."songs"("id") ON DELETE cascade ON UPDATE no action;
+ALTER TABLE "saved_songs" ADD CONSTRAINT "saved_songs_song_id_songs_id_fk" FOREIGN KEY ("song_id") REFERENCES "public"."songs"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+CREATE INDEX "hash_idx" ON "hashes" USING btree ("song_id");

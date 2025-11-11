@@ -1,4 +1,4 @@
-import { pgEnum, pgTable, text, uuid, timestamp, primaryKey } from "drizzle-orm/pg-core";
+import { pgEnum, pgTable, text, uuid, timestamp, primaryKey, bigint, integer, index } from "drizzle-orm/pg-core";
 
 export const userRole = pgEnum("user_role", ['user', 'admin'])
 
@@ -36,3 +36,13 @@ export const savedSongs = pgTable("saved_songs", {
 }, (table) => [
   primaryKey({ columns: [table.userId, table.songId] })
 ]);
+
+export const hashes = pgTable("hashes", {
+  hash: bigint({ mode: 'bigint' }).notNull(),
+  time: integer().notNull(),
+  songId: uuid("song_id")
+    .notNull()
+    .references(() => songs.id, { onDelete: "cascade" }),
+}, (table) => [
+  index("hash_idx").on(table.songId)
+])
